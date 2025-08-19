@@ -16,7 +16,15 @@ intents.members = True
 
 bot = commands.Bot(command_prefix='!', intents=intents)
 
-waitTime = datetime.timedelta(hours=3).total_seconds()
+waitTime = datetime.timedelta(hours=4).total_seconds()
+startTime = 0
+endTime = 4
+
+morningPill = 0
+afternoonPill = 2
+eveningPill = 3
+
+
 
 @bot.event
 async def on_ready():
@@ -24,7 +32,8 @@ async def on_ready():
 
 @bot.command()
 async def pain(ctx):
-    for counter in range(0, 5):
+    for counter in range(startTime, endTime):
+        reply_message = "Record your current pain level"
         embed = discord.Embed(title='Pain Level', description='What is your pain level?')
         poll_message = await ctx.send(embed=embed)
         await poll_message.add_reaction("0️⃣")
@@ -38,10 +47,14 @@ async def pain(ctx):
         await poll_message.add_reaction("8️⃣")
         await poll_message.add_reaction("9️⃣")
         await poll_message.add_reaction("🔟")
-        if counter % 2 == 0 and counter != 0:
-            await ctx.reply("Record your current pain level and take your next pill")
+        if counter == morningPill:
+            await ctx.reply(reply_message + " and take your first pill if you haven't")
+        elif counter == eveningPill:
+            await ctx.reply(reply_message + " and take your next pill")
+        elif counter == afternoonPill:
+            await  ctx.reply(reply_message + " and take your last pill")
         else:
-            await ctx.reply("Record your current pain level")
+            await ctx.reply(reply_message)
         await asyncio.sleep(waitTime)
 
 
