@@ -24,7 +24,7 @@ morningPill = 0
 afternoonPill = 2
 eveningPill = 3
 
-
+painLevelEmojis = ["0️⃣", "1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "🔟"]
 
 @bot.event
 async def on_ready():
@@ -36,17 +36,8 @@ async def pain(ctx):
         reply_message = "Record your current pain level"
         embed = discord.Embed(title='Pain Level', description='What is your pain level?')
         poll_message = await ctx.send(embed=embed)
-        await poll_message.add_reaction("0️⃣")
-        await poll_message.add_reaction("1️⃣")
-        await poll_message.add_reaction("2️⃣")
-        await poll_message.add_reaction("3️⃣")
-        await poll_message.add_reaction("4️⃣")
-        await poll_message.add_reaction("5️⃣")
-        await poll_message.add_reaction("6️⃣")
-        await poll_message.add_reaction("7️⃣")
-        await poll_message.add_reaction("8️⃣")
-        await poll_message.add_reaction("9️⃣")
-        await poll_message.add_reaction("🔟")
+        for emoji in painLevelEmojis:
+            await poll_message.add_reaction(emoji)
         if counter == morningPill:
             await ctx.reply(reply_message + " and take your first pill if you haven't")
         elif counter == afternoonPill:
