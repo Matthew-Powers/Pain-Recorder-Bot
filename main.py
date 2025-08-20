@@ -49,9 +49,9 @@ async def pain(ctx):
         await poll_message.add_reaction("🔟")
         if counter == morningPill:
             await ctx.reply(reply_message + " and take your first pill if you haven't")
-        elif counter == eveningPill:
-            await ctx.reply(reply_message + " and take your next pill")
         elif counter == afternoonPill:
+            await ctx.reply(reply_message + " and take your next pill")
+        elif counter == eveningPill:
             await  ctx.reply(reply_message + " and take your last pill")
         else:
             await ctx.reply(reply_message)
